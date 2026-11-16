@@ -19,33 +19,33 @@ route_id,route_code,origin_city,destination_city,distance_km,estimated_duration_
 18,RTE-118,San Miguel de Tucumán,Córdoba,534.02,6.84,3261.99
 19,RTE-119,San Miguel de Tucumán,Rosario,964.06,11.63,5138.25
 20,RTE-120,San Miguel de Tucumán,Mendoza,1002.45,11.6,5855.35
-21,RTE-121,San Miguel de Tucumán,Córdoba,570.31,7.48,3248.4
-22,RTE-122,Córdoba,Buenos Aires,742.71,8.33,3914.35
-23,RTE-123,San Miguel de Tucumán,Rosario,895.4,11.5,6134.73
-24,RTE-124,Mendoza,Córdoba,571.79,7.12,3564.44
-25,RTE-125,Rosario,Mendoza,917.63,9.8,4578.98
-26,RTE-126,Córdoba,Mendoza,550.91,6.82,3090.13
-27,RTE-127,Córdoba,Mendoza,611.57,7.33,3600.68
-28,RTE-128,Mendoza,Rosario,930.08,10.72,4267.22
-29,RTE-129,Buenos Aires,Rosario,316.12,3.39,1876.1
-30,RTE-130,Córdoba,Mendoza,540.39,7.83,3730.66
-31,RTE-131,San Miguel de Tucumán,Córdoba,550.84,6.45,3112.77
-32,RTE-132,San Miguel de Tucumán,Córdoba,511.81,7.37,3035.44
-33,RTE-133,San Miguel de Tucumán,Buenos Aires,1274.74,14.97,6626.7
-34,RTE-134,Rosario,San Miguel de Tucumán,900.5,10.9,5611.14
-35,RTE-135,Buenos Aires,San Miguel de Tucumán,1307.98,15.95,8575.47
-36,RTE-136,San Miguel de Tucumán,Córdoba,509.12,6.97,3044.82
-37,RTE-137,Rosario,Mendoza,928.94,10.86,5382.9
-38,RTE-138,Córdoba,Rosario,391.92,4.65,2405.07
-39,RTE-139,San Miguel de Tucumán,Mendoza,905.72,11.34,5708.55
-40,RTE-140,San Miguel de Tucumán,Córdoba,559.73,6.31,3187.06
-41,RTE-141,Buenos Aires,Córdoba,639.44,7.7,4271.08
-42,RTE-142,San Miguel de Tucumán,Córdoba,525.63,6.98,3035.31
-43,RTE-143,San Miguel de Tucumán,Mendoza,929.63,11.94,5832.71
-44,RTE-144,Buenos Aires,San Miguel de Tucumán,1289.75,14.56,7299.98
-45,RTE-145,Buenos Aires,San Miguel de Tucumán,1140.15,15.68,8176.33
-46,RTE-146,Buenos Aires,Córdoba,656.82,8.56,4014.25
-47,RTE-147,Córdoba,Rosario,397.01,4.84,2181.54
-48,RTE-148,San Miguel de Tucumán,Buenos Aires,1137.65,16.5,8256.06
-49,RTE-149,Buenos Aires,Córdoba,653.28,8.48,4113.56
-50,RTE-150,Mendoza,Buenos Aires,979.57,11.71,6286.32
+21,RTE-121,Buenos Aires,Córdoba,734.27,8.62,4551.25
+22,RTE-122,Buenos Aires,Rosario,305.54,3.62,2110.4
+23,RTE-123,Buenos Aires,Mendoza,1021.55,12.39,6260.09
+24,RTE-124,Buenos Aires,San Miguel de Tucumán,1220.97,14.57,8164.36
+25,RTE-125,Córdoba,Buenos Aires,726.35,8.34,4639.89
+26,RTE-126,Córdoba,Rosario,395.83,4.69,2479.43
+27,RTE-127,Córdoba,Mendoza,585.89,7.31,3542.96
+28,RTE-128,Córdoba,San Miguel de Tucumán,536.95,7.06,3238.69
+29,RTE-129,Rosario,Buenos Aires,296.98,3.4,2199.02
+30,RTE-130,Rosario,Córdoba,400.38,4.32,2273.56
+31,RTE-131,Rosario,Mendoza,816.82,10.13,5292.08
+32,RTE-132,Rosario,San Miguel de Tucumán,942.61,11.0,5369.78
+33,RTE-133,Mendoza,Buenos Aires,1102.09,13.04,7112.4
+34,RTE-134,Mendoza,Córdoba,621.65,7.13,3654.51
+35,RTE-135,Mendoza,Rosario,865.45,10.04,4766.83
+36,RTE-136,Mendoza,San Miguel de Tucumán,993.81,11.53,5921.72
+37,RTE-137,San Miguel de Tucumán,Buenos Aires,1244.22,15.68,8063.78
+38,RTE-138,San Miguel de Tucumán,Córdoba,536.99,7.0,2807.19
+39,RTE-139,San Miguel de Tucumán,Rosario,989.2,11.93,5278.29
+40,RTE-140,San Miguel de Tucumán,Mendoza,993.62,12.13,5583.41
+41,RTE-141,Buenos Aires,Córdoba,718.38,8.53,4750.76
+42,RTE-142,Buenos Aires,Rosario,300.91,3.33,1929.66
+43,RTE-143,Buenos Aires,Mendoza,999.55,13.56,6992.34
+44,RTE-144,Buenos Aires,San Miguel de Tucumán,1291.46,14.71,6836.89
+45,RTE-145,Córdoba,Buenos Aires,726.46,8.88,4127.09
+46,RTE-146,Córdoba,Rosario,399.44,4.31,2630.3
+47,RTE-147,Córdoba,Mendoza,615.95,7.22,3482.7
+48,RTE-148,Córdoba,San Miguel de Tucumán,552.74,6.84,3223.46
+49,RTE-149,Rosario,Buenos Aires,297.69,3.4,2015.72
+50,RTE-150,Rosario,Córdoba,409.2,4.37,2405.86
