@@ -1,4 +1,5 @@
--- FleetLogix - Avance 2: 12 queries de análisis (PostgreSQL, base fleet_logix_bd)
+-- FleetLogix - Avance 2: 8 de las 12 queries de análisis (PostgreSQL, base fleet_logix_bd)
+-- Selección: las 3 básicas (1, 2, 3), la 4 y la 5, la 6 (de 6, 7 u 8), la 9 y la 12 (de 10, 11 o 12)
 
 -- Query 1 (básica): Cantidad de conductores activos
 -- Problema de negocio: Saber cuántos conductores están disponibles para asignarles viajes.
@@ -64,23 +65,6 @@ JOIN routes r ON t.route_id = r.route_id
 ORDER BY t.departure_datetime DESC
 LIMIT 100;
 
--- Query 7 (intermedia): Cantidad de entregas según su estado
--- Problema de negocio: Medir el nivel de servicio: cuántas entregas se completan, fallan o quedan pendientes.
-SELECT delivery_status AS estado_entrega, COUNT(*) AS cantidad
-FROM deliveries
-GROUP BY delivery_status
-ORDER BY cantidad DESC;
-
--- Query 8 (intermedia): Rutas más usadas
--- Problema de negocio: Saber qué rutas concentran más viajes para priorizar recursos en ellas.
-SELECT r.route_code,
-       r.origin_city || ' -> ' || r.destination_city AS trayecto,
-       COUNT(t.trip_id) AS total_viajes
-FROM routes r
-JOIN trips t ON r.route_id = t.route_id
-GROUP BY r.route_code, r.origin_city, r.destination_city
-ORDER BY total_viajes DESC;
-
 -- Query 9 (compleja): Ranking de eficiencia de conductores
 -- Problema de negocio: Comparar a los conductores por su porcentaje de entregas exitosas.
 WITH conductor_entregas AS (
@@ -98,24 +82,6 @@ SELECT conductor, total_entregas, entregas_exitosas,
        RANK() OVER (ORDER BY entregas_exitosas::NUMERIC / total_entregas DESC) AS ranking_eficiencia
 FROM conductor_entregas
 ORDER BY ranking_eficiencia;
-
--- Query 10 (compleja): Tiempo de descanso entre viajes de un conductor
--- Problema de negocio: Controlar que los conductores descansen entre un viaje y el siguiente.
-SELECT driver_id, trip_id, departure_datetime,
-       LAG(arrival_datetime) OVER (PARTITION BY driver_id ORDER BY departure_datetime) AS llegada_viaje_anterior,
-       departure_datetime - LAG(arrival_datetime) OVER (PARTITION BY driver_id ORDER BY departure_datetime) AS tiempo_descanso
-FROM trips
-WHERE driver_id = 25
-ORDER BY departure_datetime;
-
--- Query 11 (compleja): Costo acumulado de mantenimiento de un vehículo
--- Problema de negocio: Ver cómo crece en el tiempo lo que se gasta en mantener un vehículo.
-SELECT v.vehicle_id, v.license_plate, m.maintenance_date, m.cost,
-       SUM(m.cost) OVER (PARTITION BY v.vehicle_id ORDER BY m.maintenance_date) AS costo_acumulado
-FROM vehicles v
-JOIN maintenance m ON v.vehicle_id = m.vehicle_id
-WHERE v.vehicle_id = 10
-ORDER BY m.maintenance_date;
 
 -- Query 12 (compleja): Vehículos sin viajes en el último mes
 -- Problema de negocio: Detectar vehículos parados, que generan costo sin producir.

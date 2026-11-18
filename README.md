@@ -7,7 +7,7 @@
 FleetLogix es una empresa de transporte y logística que opera **200 vehículos** entre 5 ciudades de Argentina (Buenos Aires, Córdoba, Rosario, Mendoza y San Miguel de Tucumán). El proyecto arma, de punta a punta, la infraestructura de datos de la empresa:
 
 1. **Avance 1:** se generan datos sintéticos coherentes y se cargan en una base PostgreSQL de 6 tablas.
-2. **Avance 2:** se responden 12 preguntas de negocio con SQL y se optimizan con índices.
+2. **Avance 2:** se responden 8 preguntas de negocio con SQL y se optimizan con índices.
 3. **Avance 3:** se construye un Data Warehouse en Snowflake (modelo estrella) con un pipeline ETL en Python.
 4. **Avance 4:** se diseña la arquitectura en AWS para recibir los datos de los camiones en tiempo real.
 
@@ -19,7 +19,7 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 |---|---|---|
 | Generar datos | Python (Faker, pandas, numpy) | 6 archivos CSV, 506.111 registros |
 | Base transaccional | PostgreSQL `fleet_logix_bd` | 6 tablas con claves primarias y foráneas |
-| Análisis | SQL + `EXPLAIN ANALYZE` | 12 queries documentadas y 5 índices |
+| Análisis | SQL + `EXPLAIN ANALYZE` | 8 queries documentadas y 5 índices |
 | Data Warehouse | Snowflake `FLEET_DW.ANALYTICAL_CORE` | 1 tabla de hechos, 6 dimensiones y 2 vistas seguras |
 | Nube | AWS (API Gateway, Lambda, S3, DynamoDB, RDS, SNS) | Arquitectura y 3 funciones Lambda |
 
@@ -28,7 +28,7 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 **1. Notebooks**
 
 - `Avance_1_DataGeneration.ipynb`: generación de datos y control de calidad.
-- `Avance_2_SQLAnalysis.ipynb`: 12 queries, planes de ejecución, índices y comparación de tiempos.
+- `Avance_2_SQLAnalysis.ipynb`: 8 queries, planes de ejecución, índices y comparación de tiempos.
 - `Avance_3_DataWarehouse.ipynb`: pipeline ETL de PostgreSQL a Snowflake.
 - `Avance_4_CloudArchitecture.ipynb`: arquitectura AWS, pruebas de las Lambdas y análisis del ETA.
 
@@ -37,7 +37,7 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 | Archivo | Avance | Qué hace |
 |---|---|---|
 | `01_data_generation.py` | Avance 1 | genera los 6 CSV (versión script del notebook) |
-| `02_queries_analysis.sql` | Avance 2 | las 12 queries |
+| `02_queries_analysis.sql` | Avance 2 | 8 de las 12 queries |
 | `03_optimization_indexes.sql` | Avance 2 | los 5 índices |
 | `04_dimensional_model.sql` | Avance 3 | tablas y vistas del Data Warehouse en Snowflake |
 | `05_etl_pipeline.py` | Avance 3 | pipeline ETL (versión script del notebook) |
@@ -65,13 +65,13 @@ El notebook corre **15 controles de calidad** antes de cargar, y pasan todos. En
 
 ### Avance 2: análisis SQL y optimización
 
-Se corrieron 12 queries (3 básicas, 5 intermedias y 4 complejas), cada una con el problema de negocio que resuelve. Algunos resultados:
+De las 12 queries se trabajaron 8, según la selección de la consigna: las 3 básicas, la 4, la 5, la 6, la 9 y la 12. Cada una tiene el problema de negocio que resuelve. Algunos resultados:
 
-- El **92%** de las entregas se completa, el 5% falla y el 3% queda pendiente.
-- Las 50 rutas tienen un uso parejo, de entre 1.921 y 2.059 viajes cada una.
+- Hay **351 conductores activos** de 400.
+- Solo los **8 vehículos inactivos** no hicieron viajes en el último mes.
 - El porcentaje de éxito de los conductores va del 88,6% al 95,6%.
 
-Con **5 índices**, el tiempo total de las 12 queries bajó de **472,7 ms a 356,0 ms**. Las queries que buscan pocas filas mejoraron más del 90% (la 6 bajó de 57,2 ms a 0,4 ms). Las que resumen tablas enteras casi no cambian, porque tienen que leer todas las filas de todos modos. El detalle está en el `Manual_Consultas_SQL.pdf`.
+Con **5 índices**, el tiempo total de las 8 queries bajó de **379,0 ms a 280,4 ms**. Las queries que buscan pocas filas mejoraron más del 90% (la 6 bajó de 56,3 ms a 0,4 ms). Las que resumen tablas enteras casi no cambian, porque tienen que leer todas las filas de todos modos. El detalle está en el `Manual_Consultas_SQL.pdf`.
 
 ### Avance 3: Data Warehouse en Snowflake
 
