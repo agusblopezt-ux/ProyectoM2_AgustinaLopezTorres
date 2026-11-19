@@ -66,7 +66,7 @@ for i in range(1, 201):
 
 # Convertir a DataFrame y guardar en CSV
 df_vehicles = pd.DataFrame(vehicles)
-df_vehicles.to_csv('vehicles.csv', index=False)
+df_vehicles.to_csv('../datos/vehicles.csv', index=False)
 log.info(f'vehicles: {len(df_vehicles)} registros generados')
 print(df_vehicles.head())
 
@@ -116,7 +116,7 @@ for i in range(1, 401):
 
 # Convertir a DataFrame y guardar en CSV
 df_drivers = pd.DataFrame(drivers)
-df_drivers.to_csv('drivers.csv', index=False)
+df_drivers.to_csv('../datos/drivers.csv', index=False)
 log.info(f'drivers: {len(df_drivers)} registros generados')
 print(df_drivers.head())
 
@@ -166,7 +166,7 @@ while route_id <= 50:                       # repetimos las 20 combinaciones has
 
 # Convertir a DataFrame y guardar en CSV
 df_routes = pd.DataFrame(routes)
-df_routes.to_csv('routes.csv', index=False)
+df_routes.to_csv('../datos/routes.csv', index=False)
 log.info(f'routes: {len(df_routes)} registros generados')
 print(df_routes.head())
 
@@ -258,7 +258,7 @@ def generate_trips(n_trips=100000):
 
 log.info('Generando trips...')
 df_trips = generate_trips()
-df_trips.to_csv('trips.csv', index=False)
+df_trips.to_csv('../datos/trips.csv', index=False)
 log.info(f'trips: {len(df_trips)} registros generados')
 print(df_trips.head())
 
@@ -312,7 +312,7 @@ for trip in trip_records:
         delivery_id += 1
 
 df_deliveries = pd.DataFrame(deliveries)
-df_deliveries.to_csv('deliveries.csv', index=False)
+df_deliveries.to_csv('../datos/deliveries.csv', index=False)
 log.info(f'deliveries: {len(df_deliveries)} registros generados')
 print(df_deliveries.head())
 
@@ -355,7 +355,7 @@ for idx, (_, trip) in enumerate(sampled_trips.iterrows(), start=1):
     })
 
 df_maint = pd.DataFrame(maintenance_records)
-df_maint.to_csv('maintenance.csv', index=False)
+df_maint.to_csv('../datos/maintenance.csv', index=False)
 log.info(f'maintenance: {len(df_maint)} registros generados')
 print(df_maint.head())
 

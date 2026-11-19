@@ -48,6 +48,9 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 
 - `README.pdf` (este documento en PDF), `Manual_Consultas_SQL.pdf`, `Arquitectura_Tecnica.pdf`, `Capturas_Snowflake.pdf`, `data_dictionary.xlsx` y `torre_de_control.html`.
 
+
+**Carpeta `datos`** (solo en GitHub): los 6 CSV generados en el Avance 1, que usan la carga a PostgreSQL y el análisis del Avance 4.
+
 ## 4. Resultados por avance
 
 ### Avance 1: generación de datos
@@ -106,7 +109,7 @@ Los eventos crudos se guardan en **S3** por fecha, el estado actual en **DynamoD
 ## 5. Cómo reproducirlo
 
 1. Instalar Python 3.12, PostgreSQL y las librerías: `pip install faker pandas numpy matplotlib sqlalchemy psycopg2-binary snowflake-connector-python`.
-2. Correr `Avance_1_DataGeneration.ipynb` (o `01_data_generation.py`): genera los 6 CSV.
+2. Correr `Avance_1_DataGeneration.ipynb` (o `01_data_generation.py`): genera los 6 CSV en la carpeta `datos`.
 3. Crear la base `fleet_logix_bd` con sus 6 tablas y cargar los CSV en el orden vehicles, drivers, routes, trips, deliveries, maintenance.
 4. Correr `Avance_2_SQLAnalysis.ipynb`: ejecuta las queries, crea los índices y compara tiempos.
 5. Correr `Avance_3_DataWarehouse.ipynb` (o `05_etl_pipeline.py`) desde su carpeta, así encuentra `04_dimensional_model.sql` en `2. Scripts`: crea el modelo en Snowflake y lo carga.
