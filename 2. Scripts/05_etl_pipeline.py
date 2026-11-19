@@ -1,8 +1,10 @@
 # FleetLogix - Avance 3: pipeline ETL PostgreSQL -> Snowflake (exportado de Avance_3_DataWarehouse.ipynb)
 # Requiere: pip install sqlalchemy psycopg2-binary snowflake-connector-python pandas
-# Se corre desde la carpeta donde está 04_dimensional_model.sql
+# Se puede correr a mano o programado todas las noches (ver el final del archivo).
 
 import getpass
+import os
+from datetime import datetime
 import pandas as pd
 from sqlalchemy import create_engine
 import snowflake.connector
@@ -13,7 +15,8 @@ from snowflake.connector.pandas_tools import write_pandas
 # 1. EXTRACCIÓN DESDE POSTGRESQL
 # ======================================================================
 
-clave_pg = getpass.getpass('Contraseña de PostgreSQL: ')
+# Si la contraseña está guardada en la compu (variable PG_PASSWORD) la usa; si no, la pide
+clave_pg = os.environ.get('PG_PASSWORD') or getpass.getpass('Contraseña de PostgreSQL: ')
 pg_url = f"postgresql+psycopg2://postgres:{clave_pg}@localhost:5432/fleet_logix_bd"
 engine = create_engine(pg_url)
 
@@ -145,7 +148,7 @@ for df in tablas.values():
 print("☁️ Conectando a Snowflake para la carga masiva...")
 ctx = snowflake.connector.connect(
     user='etl_user',
-    password=getpass.getpass('Contraseña de Snowflake: '),
+    password=os.environ.get('SNOWFLAKE_PASSWORD') or getpass.getpass('Contraseña de Snowflake: '),
     account='nzuyhke-oc72550',
     warehouse='FLEET_WH',
     database='FLEET_DW',
@@ -154,7 +157,8 @@ ctx = snowflake.connector.connect(
 
 try:
     # Crear las tablas y las vistas (borra las anteriores y las vuelve a crear vacías)
-    with open('04_dimensional_model.sql', encoding='utf-8') as archivo:
+    carpeta = os.path.dirname(os.path.abspath(__file__))          # la carpeta de este script
+    with open(os.path.join(carpeta, '04_dimensional_model.sql'), encoding='utf-8') as archivo:
         ctx.execute_string(archivo.read())
     print("✔️ Tablas y vistas creadas.")
 
@@ -170,9 +174,31 @@ try:
         print(f"🔎 {vista}: {cur.fetchone()[0]} filas")
 
     print("🎉 ¡Pipeline ETL completo ejecutado de punta a punta con éxito!")
+    resultado = 'OK'
 
 except Exception as e:
     print(f"❌ Error durante la carga a Snowflake: {e}")
+    resultado = f'ERROR: {e}'
 
 finally:
     ctx.close()
+    # Cada corrida queda anotada en etl_log.txt, con fecha y resultado
+    with open(os.path.join(carpeta, 'etl_log.txt'), 'a', encoding='utf-8') as log:
+        log.write(f"{datetime.now():%Y-%m-%d %H:%M} | {resultado}\n")
+
+
+# ======================================================================
+# 4. AUTOMATIZACIÓN: correr el ETL todas las noches a las 03:00
+# ======================================================================
+# Con el Programador de tareas de Windows (se configura una sola vez, en PowerShell):
+#
+# 1) Guardar las contraseñas en la compu, para que el script no tenga que pedirlas:
+#      setx PG_PASSWORD "tu_contraseña_de_postgres"
+#      setx SNOWFLAKE_PASSWORD "tu_contraseña_de_snowflake"
+#
+# 2) Crear la tarea diaria:
+#      $accion = New-ScheduledTaskAction -Execute "python" -Argument '"C:\ruta\2. Scripts\05_etl_pipeline.py"'
+#      $horario = New-ScheduledTaskTrigger -Daily -At 3am
+#      Register-ScheduledTask -TaskName "FleetLogix ETL" -Action $accion -Trigger $horario
+#
+# En la nube, el mismo script lo ejecuta EventBridge (ver Arquitectura_Tecnica.pdf).
