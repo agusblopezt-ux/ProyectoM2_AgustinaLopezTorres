@@ -46,7 +46,7 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 
 **3. Documentación**
 
-- `README.pdf` (este documento en PDF), `Manual_Consultas_SQL.pdf`, `Arquitectura_Tecnica.pdf`, `Capturas_Snowflake.pdf`, `data_dictionary.xlsx` y `torre_de_control.html`.
+- `README.pdf` (este documento en PDF), `Manual_Consultas_SQL.pdf`, `Arquitectura_Tecnica.pdf`, `Capturas_Snowflake.pdf`, `data_dictionary.xlsx`, `diagrama_er.png` (diagrama entidad-relación) y `torre_de_control.html`.
 
 
 **Carpeta `datos`** (solo en GitHub): los 6 CSV generados en el Avance 1, que usan la carga a PostgreSQL y el análisis del Avance 4.
@@ -64,7 +64,7 @@ FleetLogix es una empresa de transporte y logística que opera **200 vehículos*
 | deliveries | 400.461 | entre 2 y 6 entregas por viaje, 4 lo más común |
 | maintenance | 5.000 | 6 tipos de mantenimiento, posteriores al viaje |
 
-El notebook corre **15 controles de calidad** antes de cargar, y pasan todos. Entre ellos están la integridad referencial completa, que la llegada sea posterior a la salida, que ningún conductor maneje antes de ser contratado, que nadie haga dos viajes a la vez (con 8 horas de descanso del conductor) y que no haya claves repetidas. Todo queda registrado en `carga_datos.log`.
+El notebook incluye el **diagrama entidad-relación** de las 6 tablas, con sus claves y cardinalidades, y un análisis del modelo con posibles mejoras. También corre **15 controles de calidad** antes de cargar, y pasan todos. Entre ellos están la integridad referencial completa, que la llegada sea posterior a la salida, que ningún conductor maneje antes de ser contratado, que nadie haga dos viajes a la vez (con 8 horas de descanso del conductor) y que no haya claves repetidas. Todo queda registrado en `carga_datos.log`.
 
 ### Avance 2: análisis SQL y optimización
 
